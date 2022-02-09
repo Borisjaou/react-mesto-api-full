@@ -1,0 +1,13 @@
+.error_showed {
+  opacity: 1;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  min-width: 238px;
+  max-width: 358px;
+  margin: -25px 36px 0;
+  align-self: flex-start;
+
+}
