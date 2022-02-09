@@ -1,0 +1,16 @@
+.profile__info {
+  padding-top: 26px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  grid-template-areas: 
+    "name edit"
+    "about about";
+  column-gap: 10px;
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__info {
+    padding: 0;
+  }
+}

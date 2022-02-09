@@ -1,0 +1,20 @@
+.profile__status {
+  grid-area: about;
+  padding-top: 10px;
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__status {
+    font-size: 18px;
+    line-height: 22px;
+    padding-left: 30px;
+    text-align: left;
+  } 
+}

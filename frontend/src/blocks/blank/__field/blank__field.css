@@ -1,0 +1,21 @@
+.blank__field {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	border-bottom: 2px solid rgb(84, 84, 84, 0.7);
+	padding-bottom: 13px;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 17px;
+	min-width: 238px;
+	margin-bottom: 30px;
+}
+
+@media screen and (min-width: 768px) {
+	.blank__field {
+		font-size: 14px;
+		line-height: 17px;
+		min-width: 358px;
+	}
+}
