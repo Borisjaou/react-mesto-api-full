@@ -15,6 +15,7 @@ const {
 const routes = require('./routes');
 const { PORT, DB_ADDRESS } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const allowedRequest = require('./middlewares/allowedCors');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
+app.use(allowedRequest);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
