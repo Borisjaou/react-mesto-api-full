@@ -1,6 +1,12 @@
 const allowedCors = [
-  'http://tomato.nomoredomains.xyz',
   'https://tomato.nomoredomains.xyz',
+  'http://tomato.nomoredomains.xyz',
+  'https://www.tomato.nomoredomains.xyz',
+  'http://www.tomato.nomoredomains.xyz',
+  'http://api.tomato.nomoredomains.work',
+  'https://api.tomato.nomoredomains.work',
+  'http://www.api.tomato.nomoredomains.work',
+  'https://www.api.tomato.nomoredomains.work',
   'localhost:3000',
 ];
 
