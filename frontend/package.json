@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* borisjaou@84.201.138.86:/home/borisjaou/frontend-mesto"
+    "deploy": "npm run build && scp -r ./build/* borisjaou@84.201.177.44:/home/borisjaou/frontend"
   },
   "eslintConfig": {
     "extends": [

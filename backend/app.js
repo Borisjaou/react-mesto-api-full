@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,12 +14,12 @@ const {
 } = require('./controllers/users');
 
 const routes = require('./routes');
-const { PORT, DB_ADDRESS } = require('./src/utils/config');
+
+const { PORT, DB_ADDRESS } = process.env;
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const allowedRequest = require('./middlewares/allowedCors');
 
 const app = express();
-
 mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
