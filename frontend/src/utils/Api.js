@@ -92,7 +92,7 @@ class Api {
 const options = {
   baseUrl: 'api.tomato.nomoredomains.work',
   headers: {
-    authorization: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCbYSZXT0/TPxbOwjQP1G8wQFyBL3uBVHrbxCT+x22gLu9rccdz1T/vmhpwRtPdQDIzZfcL4xyhIXmfk2F/yDpKENodzX3uSuS3Q2S0l+ssKs2bGx7IUET/p8A2tykz0lFBzz6ufzgOof9kt0QG0CSQc8v/lFXR1tZEeAB36nfpiS85tV47iX4TBlKOS1iSKXKqxG/f2G6St/E6m1W7W6R5FbgtYW/hhlO9dkPVYbadDfVC+ehfnO05DFCroJp9pTQNJqFdEgrnuSibrpqVCpABFyn+Nqics7kHftXhv3HPM0KhI5RkrpUG3W8xGURXYd1VP6d66uhGHr2R+sbN+9K29q8lRfrc6jZL24573B7ZGJMa4QbUmuO149xkBTY4cQhFg3jGM6jqz0pcYVZ25MvMMYSTfaIwQS87M9vBJDV6or1bhFyiNmfGzFWe4Ua0xhWwDCc0v2puMjzYdWkN9iG72r4FFEM5iAiq9u6b95jZgiUBaqcc4Bj91vROjeRLbR2ILkomUvQKP3Cpw0twvqzzPnxgrXn4IFvy3xmWjJvY8gw7verbRiF9/W2lmu25v2bk5B0M44+wpkkI10sBWtuYkCYlLCFgOgrBF6dng1O7MzOr6m7IBVQdg5DNUMnAr6X0uhYj2IM0tKNgqWI75hhDlC8m8kAKahkYjSH5ip0+Uw== 366793@gmail.com@84.201.138.86',
+    authorization: 'what',
     'Content-Type': 'application/json',
   },
 };
