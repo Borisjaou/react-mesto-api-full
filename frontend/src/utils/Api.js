@@ -6,6 +6,7 @@ class Api {
 
   _checkResponse(res) {
     if (res.ok) {
+      console.log(res);
       return res.json();
     }
     return Promise.reject(res.status);
@@ -92,7 +93,6 @@ class Api {
 const options = {
   baseUrl: 'api.tomato.nomoredomains.work',
   headers: {
-    authorization: 'what',
     'Content-Type': 'application/json',
   },
 };
