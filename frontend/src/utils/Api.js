@@ -1,7 +1,10 @@
 class Api {
-  constructor(config) {
-    this.url = config.baseUrl;
-    this._headers = config.headers;
+  constructor() {
+    this.url = 'api.tomato.nomoredomains.work';
+    this._headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
   }
 
   _checkResponse(res) {
@@ -101,6 +104,7 @@ class Api {
 const options = {
   baseUrl: 'api.tomato.nomoredomains.work',
   headers: {
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
   },
 };
