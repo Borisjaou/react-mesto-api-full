@@ -14,18 +14,21 @@ class Api {
   listItem() {
     return fetch(this._url, {
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
   getUserInfo() {
     return fetch(`${this.url}/${'users'}/${'me'}`, {
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(`${this.url}/${'cards'}`, {
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -33,6 +36,7 @@ class Api {
     return fetch(`${this.url}/${'users'}/${'me'}`, {
       method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: userName,
         about: info,
@@ -44,6 +48,7 @@ class Api {
     return fetch(`${this.url}/${'cards'}`, {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         link: link,
@@ -55,6 +60,7 @@ class Api {
     return fetch(`${this.url}/${'cards'}/${id}`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -62,6 +68,7 @@ class Api {
     return fetch(`${this.url}/${'cards'}/${'likes'}/${id}`, {
       method: isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
   likeCard(id) {
@@ -75,6 +82,7 @@ class Api {
     return fetch(`${this.url}/${'cards'}/${'likes'}/${id}`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -82,6 +90,7 @@ class Api {
     return fetch(`${this.url}/${'users'}/${'me'}/${'avatar'}`, {
       method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         avatar: link,
       }),

@@ -24,13 +24,7 @@ mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../build')));
 
-  app.get('*', (req: any, res: any) => {
-    res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
-  });
-}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
