@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -14,12 +13,10 @@ const {
 } = require('./controllers/users');
 
 const routes = require('./routes');
-
-const { PORT, DB_ADDRESS } = process.env;
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const allowedRequest = require('./middlewares/allowedCors');
+const { PORT, DB_ADDRESS } = require('./src/utils/config');
 
 const app = express();
+
 mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -29,9 +26,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(requestLogger);
-
-app.use(allowedRequest);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -50,7 +44,6 @@ app.post('/signin', celebrate({
 app.post('/signout', logout);
 
 app.use(routes);
-app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
