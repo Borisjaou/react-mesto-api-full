@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const cors = require('cors');
+// const cors = require('cors');
 
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi } = require('celebrate');
@@ -17,6 +17,14 @@ const routes = require('./routes');
 const { PORT, DB_ADDRESS } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const allowedCors = [
+  'localhost:3000',
+  'http://tomato.nomoredomains.xyz',
+  'https://tomato.nomoredomains.xyz',
+  'http://api.tomato.nomoredomains.work',
+  'https://api.tomato.nomoredomains.work',
+];
+
 const app = express();
 
 mongoose.connect(DB_ADDRESS, {
@@ -28,10 +36,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors({
+/* app.use(cors({
   origin: 'http://tomato.nomoredomains.xyz',
   credentials: true,
-}));
+})); */
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.headers('Access-Control-Allow-Origin', '*');
+  }
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
+  if (method === 'OPTIONS') {
+    res.headers('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  return next();
+});
+
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
