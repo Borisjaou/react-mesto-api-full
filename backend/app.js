@@ -23,7 +23,7 @@ mongoose.connect(DB_ADDRESS, {
   useUnifiedTopology: true,
 });
 app.use(cors({
-  origin: 'tomato.nomoredomains.xyz',
+  origin: 'http://tomato.nomoredomains.xyz',
   credentials: true,
 }));
 
