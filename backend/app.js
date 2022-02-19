@@ -15,6 +15,7 @@ const {
 
 const routes = require('./routes');
 const { PORT, DB_ADDRESS } = require('./src/utils/config');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
@@ -22,15 +23,15 @@ mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-app.use(cors({
-  origin: 'http://tomato.nomoredomains.xyz',
-  credentials: true,
-}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(requestLogger);
+app.use(cors({
+  origin: 'http://tomato.nomoredomains.xyz',
+  credentials: true,
+}));
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -49,6 +50,7 @@ app.post('/signin', celebrate({
 app.post('/signout', logout);
 
 app.use(routes);
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
