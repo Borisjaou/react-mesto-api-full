@@ -52,9 +52,10 @@ app.use((req, res, next) => {
   if (method === 'OPTIONS') {
     res.headers('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
+    res.end();
+    return;
   }
-  return next();
+  next();
 });
 
 app.post('/signup', celebrate({
