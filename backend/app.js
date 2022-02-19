@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(requestLogger);
 app.use(cors({
-  origin: 'http://tomato.nomoredomains.xyz',
+  origin: 'https://tomato.nomoredomains.xyz',
   credentials: true,
 }));
 
