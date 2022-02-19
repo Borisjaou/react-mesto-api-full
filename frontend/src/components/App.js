@@ -19,242 +19,239 @@ import InfoTooltip from './InfoTooltip';
 import PageNotFound from './PageNotFound';
 
 function App() {
-	const history = useHistory();
-	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-		React.useState(false);
-	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-		React.useState(false);
-	const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-	const [selectedCard, setSelectedCard] = React.useState({});
-	const [currentUser, setCurrentUser] = React.useState({});
-	const [cards, setCards] = React.useState([]);
-	const [loggedIn, setLoggedIn] = React.useState(false);
-	const [tooltip, setTooltip] = React.useState('');
-	React.useEffect(() => {
-		api
-			.getInitialCards()
-			.then((cards) => {
-				setCards(cards);
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен ' + value);
-			});
-	}, []);
+  const history = useHistory();
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [tooltip, setTooltip] = React.useState('');
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен ' + value);
+      });
+  }, []);
 
-	React.useEffect(() => {
-		api
-			.getUserInfo()
-			.then((user) => {
-				setCurrentUser(user);
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}, []);
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }, []);
 
-	React.useEffect(() => {
-		const jwt = localStorage.getItem('token');
-		if (jwt) {
-			auth
-				.checkToken(jwt)
-				.then((data) => {
-					setLoggedIn({ loggedIn: true, email: data.data.email });
-					history.push('/');
-				})
-				.catch((value) => {
-					console.log('Ошибка. Запрос не выполнен' + value);
-				});
-		}
-	}, []);
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('token');
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((data) => {
+          setLoggedIn({ loggedIn: true, email: data.data.email });
+          history.push('/');
+        })
+        .catch((value) => {
+          console.log('Ошибка. Запрос не выполнен' + value);
+        });
+    }
+  }, []);
 
-	function handleEditProfileClick() {
-		setIsEditProfilePopupOpen(true);
-	}
-	function handleEditAvatarClick() {
-		setIsEditAvatarPopupOpen(true);
-	}
-	function handleAddPlaceClick() {
-		setIsAddPlacePopupOpen(true);
-	}
-	function handleCardClick(name, link) {
-		setSelectedCard({ name, link });
-		setIsImagePopupOpen(true);
-	}
-	function closeAllPopups() {
-		setIsEditProfilePopupOpen(false);
-		setIsEditAvatarPopupOpen(false);
-		setIsAddPlacePopupOpen(false);
-		setIsImagePopupOpen(false);
-		setTooltip('');
-	}
-	function handleUpdateUser({ name, about }) {
-		api
-			.editProfile(name, about)
-			.then((user) => {
-				setCurrentUser(user);
-				closeAllPopups();
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}
-	function handleUpdateAvatar({ avatar }) {
-		api
-			.editAvatar(avatar)
-			.then((link) => {
-				setCurrentUser(link);
-				closeAllPopups();
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}
-	function handleCardLike(card) {
-		const isLiked = card.likes.some((i) => i._id === currentUser._id);
-		api
-			.changeLikeCardStatus(card._id, !isLiked)
-			.then((newCard) => {
-				setCards((state) =>
-					state.map((c) => (c._id === card._id ? newCard : c))
-				);
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}
-	function handleCardDelete(card) {
-		api
-			.deletCard(card._id)
-			.then(() => {
-				setCards((state) => state.filter((item) => item._id !== card._id));
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}
-	function handleAddPlace({ name, link }) {
-		api
-			.addNewCard(name, link)
-			.then((newCard) => {
-				setCards([newCard, ...cards]);
-				closeAllPopups();
-			})
-			.catch((value) => {
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}
-	function handleRegisterUser({ password, email }) {
-		auth
-			.registerUser(password, email)
-			.then((res) => {
-				if (res) {
-					setTooltip({
-						text: 'Вы успешно зарегистрировались!',
-						image: 'accepted',
-						isOpen: true,
-					});
-					history.push('/sign-in');
-				}
-			})
-			.catch((value) => {
-				setTooltip({
-					text: 'Что-то пошло не так! Попробуйте еще раз.',
-					image: 'error',
-					isOpen: true,
-				});
-				console.log('Ошибка. Запрос не выполнен' + value);
-			});
-	}
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+  function handleCardClick(name, link) {
+    setSelectedCard({ name, link });
+    setIsImagePopupOpen(true);
+  }
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
+    setTooltip('');
+  }
+  function handleUpdateUser({ name, about }) {
+    api
+      .editProfile(name, about)
+      .then((user) => {
+        setCurrentUser(user);
+        closeAllPopups();
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }
+  function handleUpdateAvatar({ avatar }) {
+    api
+      .editAvatar(avatar)
+      .then((link) => {
+        setCurrentUser(link);
+        closeAllPopups();
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }
+  function handleCardDelete(card) {
+    api
+      .deletCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((item) => item._id !== card._id));
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }
+  function handleAddPlace({ name, link }) {
+    api
+      .addNewCard(name, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((value) => {
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }
+  function handleRegisterUser({ password, email }) {
+    auth
+      .registerUser(password, email)
+      .then((res) => {
+        if (res) {
+          setTooltip({
+            text: 'Вы успешно зарегистрировались!',
+            image: 'accepted',
+            isOpen: true,
+          });
+          history.push('/sign-in');
+        }
+      })
+      .catch((value) => {
+        setTooltip({
+          text: 'Что-то пошло не так! Попробуйте еще раз.',
+          image: 'error',
+          isOpen: true,
+        });
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }
 
-	function handleLoginUser({ password, email }) {
-		auth
-			.loginUser(password, email)
-			.then((data) => {
-				if (data.token !== 400) {
-					localStorage.setItem('token', data.token);
-					setLoggedIn({ loggedIn: true, email: email });
-					history.push('/');
-				}
-			})
-			.catch((value) => {
-				setTooltip({
-					text: 'Что-то пошло не так! Попробуйте еще раз.',
-					image: 'error',
-					isOpen: true,
-				});
-				console.log('Ошибка. Запрос не выполнен ' + value);
-			});
-	}
-	function handleSignOut() {
-		setLoggedIn('false');
-		localStorage.removeItem('token');
-		history.push('/sign-in');
-	}
-	function handleGoBack() {
-		history.goBack();
-	}
-	return (
-		<CurrentUserContext.Provider value={currentUser}>
-			<div className='sheet'>
-				<div className='page'>
-					<Header loggedIn={loggedIn} signOut={handleSignOut} />
-					<Switch>
-						<ProtectedRoute
-							exact
-							path='/'
-							loggedIn={loggedIn}
-							component={Main}
-							onEditProfile={handleEditProfileClick}
-							onEditAvatar={handleEditAvatarClick}
-							onAddPlace={handleAddPlaceClick}
-							onCardClick={handleCardClick}
-							cards={cards}
-							onCardLike={handleCardLike}
-							onCardDelete={handleCardDelete}
-						/>
-						<Route path='/sign-up'>
-							<Register onRegister={handleRegisterUser} />
-						</Route>
-						<Route path='/sign-in'>
-							<Login onLogin={handleLoginUser} />
-						</Route>
-						<Route path='*'>
-							<PageNotFound onBack={handleGoBack} />
-						</Route>
-					</Switch>
-					<Footer />
-				</div>
-				<InfoTooltip status={tooltip} onClose={closeAllPopups} />
-				<EditProfilePopup
-					isOpen={isEditProfilePopupOpen}
-					onClose={closeAllPopups}
-					onUpdateUser={handleUpdateUser}
-				/>
-				<EditAvatarPopup
-					isOpen={isEditAvatarPopupOpen}
-					onClose={closeAllPopups}
-					onUpdateAvatar={handleUpdateAvatar}
-				/>
-				<AddPlacePopup
-					isOpen={isAddPlacePopupOpen}
-					onClose={closeAllPopups}
-					onAddPlace={handleAddPlace}
-				/>
-				<PopupWithForm
-					title='Вы уверены?'
-					name='confirmDelete'
-					buttonName='Да'
-				/>
+  function handleLoginUser({ password, email }) {
+    auth
+      .loginUser(password, email)
+      .then(() => {
+        setLoggedIn({ loggedIn: true, email: email });
+        history.push('/');
+      })
+      .catch((value) => {
+        setTooltip({
+          text: 'Что-то пошло не так! Попробуйте еще раз.',
+          image: 'error',
+          isOpen: true,
+        });
+        console.log('Ошибка. Запрос не выполнен ' + value);
+      });
+  }
+  function handleSignOut() {
+    setLoggedIn('false');
+    localStorage.removeItem('token');
+    history.push('/sign-in');
+  }
+  function handleGoBack() {
+    history.goBack();
+  }
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='sheet'>
+        <div className='page'>
+          <Header loggedIn={loggedIn} signOut={handleSignOut} />
+          <Switch>
+            <ProtectedRoute
+              exact
+              path='/'
+              loggedIn={loggedIn}
+              component={Main}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+            <Route path='/sign-up'>
+              <Register onRegister={handleRegisterUser} />
+            </Route>
+            <Route path='/sign-in'>
+              <Login onLogin={handleLoginUser} />
+            </Route>
+            <Route path='*'>
+              <PageNotFound onBack={handleGoBack} />
+            </Route>
+          </Switch>
+          <Footer />
+        </div>
+        <InfoTooltip status={tooltip} onClose={closeAllPopups} />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlace}
+        />
+        <PopupWithForm
+          title='Вы уверены?'
+          name='confirmDelete'
+          buttonName='Да'
+        />
 
-				<ImagePopup
-					isOpen={isImagePopupOpen}
-					onClose={closeAllPopups}
-					card={selectedCard}
-				/>
-			</div>
-		</CurrentUserContext.Provider>
-	);
+        <ImagePopup
+          isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+          card={selectedCard}
+        />
+      </div>
+    </CurrentUserContext.Provider>
+  );
 }
 
 export default App;
