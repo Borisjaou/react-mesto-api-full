@@ -100,7 +100,7 @@ class Api {
 } //end
 
 const options = {
-  baseUrl: 'api.tomato.nomoredomains.work',
+  baseUrl: 'http://api.tomato.nomoredomains.work',
   headers: {
     'Content-Type': 'application/json',
   },
