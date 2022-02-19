@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
 
 const cookieParser = require('cookie-parser');
@@ -18,13 +18,13 @@ const routes = require('./routes');
 const { PORT, DB_ADDRESS } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-/* const allowedCors = [
+const allowedCors = [
   'localhost:3000',
   'http://tomato.nomoredomains.xyz',
   'https://tomato.nomoredomains.xyz',
   'http://api.tomato.nomoredomains.work',
   'https://api.tomato.nomoredomains.work',
-]; */
+];
 
 const app = express();
 
@@ -37,12 +37,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors({
+/* app.use(cors({
   origin: 'https://tomato.nomoredomains.xyz',
   credentials: true,
-}));
+})); */
 
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
     res.headers('Access-Control-Allow-Origin', '*');
@@ -57,7 +57,7 @@ app.use(cors({
     return;
   }
   next();
-}); */
+});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
