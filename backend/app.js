@@ -8,6 +8,9 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi } = require('celebrate');
 const errorHandler = require('./middlewares/error-handler');
+
+const { DB_ADDRESS, PORT } = process.env;
+
 const {
   createUser,
   login,
@@ -15,7 +18,7 @@ const {
 } = require('./controllers/users');
 
 const routes = require('./routes');
-const { PORT, DB_ADDRESS } = require('./src/utils/config');
+// const { PORT, DB_ADDRESS } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 /* const allowedCors = [
