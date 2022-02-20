@@ -84,5 +84,5 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-/* /* eslint no-console: ["error", { allow: [log] }]
-app.listen(PORT, () => console.log(`Сервер запущен успешно. Порт ${PORT}`)); */
+/* eslint no-console: ["error", { allow: [log] }] */
+app.listen(PORT, () => console.log(`Сервер запущен успешно. Порт ${PORT}`));

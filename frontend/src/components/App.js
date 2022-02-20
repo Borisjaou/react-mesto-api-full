@@ -59,6 +59,7 @@ function App() {
       auth
         .checkToken(jwt)
         .then((data) => {
+          localStorage.setItem('token', data.token);
           setLoggedIn({ loggedIn: true, email: data.data.email });
           history.push('/');
         })
