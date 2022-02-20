@@ -1,11 +1,11 @@
 // const router = require('express').Router();
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const ConflictError = require('../errors/conflict-error');
 const User = require('../models/user');
 const NotFound = require('../errors/not-found-error');
 const BadRequest = require('../errors/bad-request-error');
-require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
