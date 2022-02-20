@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/Borisjaou/express-mesto/issues"
   },
-  "homepage": "https://tomato.nomoredomains.xyz/",
+  "homepage": ".",
   "devDependencies": {
     "eslint": "^8.6.0",
     "eslint-config-airbnb-base": "^15.0.0",
