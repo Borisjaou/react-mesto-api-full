@@ -98,6 +98,7 @@ const updateAvatar = (req, res, next) => User
     }
   });
 
+// авторизация схема создание токена
 const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCreditails(email, password)

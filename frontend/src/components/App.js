@@ -61,9 +61,9 @@ function App() {
       auth
         .checkToken(jwt)
         .then((data) => {
-          console.log(data)
+          console.log(data.token)
           localStorage.setItem('token', data.token);
-          setLoggedIn({ loggedIn: true, email: data.data.email });
+          setLoggedIn({ loggedIn: true, email: data.email });
           history.push('/');
         })
         .catch((value) => {
@@ -176,9 +176,12 @@ function App() {
     auth
       .loginUser(password, email)
       .then((data) => {
-        console.log(data)
-        setLoggedIn({ loggedIn: true, email: email });
-        history.push('/');
+        console.log(data.header)
+        if (data.token !== 400) {
+          localStorage.setItem('token', data.token);
+          setLoggedIn({ loggedIn: true, email: email });
+          history.push('/');
+        }
       })
       .catch((value) => {
         setTooltip({

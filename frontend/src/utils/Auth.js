@@ -5,7 +5,6 @@ class Auth {
   }
 
   _checkResponse(res) {
-    console.log(res)
     if (res.ok) {
       return res.json();
     }
@@ -13,7 +12,7 @@ class Auth {
   }
 
   registerUser(password, email) {
-    return fetch(`${this.url}/${'signup'}`, {
+    return fetch(`${this.url}/${'sign-up'}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -28,7 +27,7 @@ class Auth {
   }
 
   loginUser(password, email) {
-    return fetch(`${this.url}/${'signin'}`, {
+    return fetch(`${this.url}/${'sign-in'}`, {
       method: 'POST',
       headers: this._headers,
       credentials: 'include',

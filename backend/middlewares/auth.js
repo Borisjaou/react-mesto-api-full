@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
   } catch (err) {
     next(new Unauthorized('Необходимо авторизоваться'));
   }
+
   req.user = payload;
   next();
 };
