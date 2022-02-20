@@ -53,12 +53,15 @@ function App() {
       });
   }, []);
 
+
+  // Проверка токена
   React.useEffect(() => {
     const jwt = localStorage.getItem('token');
     if (jwt) {
       auth
         .checkToken(jwt)
         .then((data) => {
+          console.log(data)
           localStorage.setItem('token', data.token);
           setLoggedIn({ loggedIn: true, email: data.data.email });
           history.push('/');
@@ -168,10 +171,12 @@ function App() {
       });
   }
 
+  // Логин пользователя
   function handleLoginUser({ password, email }) {
     auth
       .loginUser(password, email)
-      .then(() => {
+      .then((data) => {
+        console.log(data)
         setLoggedIn({ loggedIn: true, email: email });
         history.push('/');
       })
