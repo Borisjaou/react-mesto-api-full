@@ -18,6 +18,7 @@ class Auth {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({
         password: password,
         email: email,
@@ -29,6 +30,7 @@ class Auth {
     return fetch(`${this.url}/${'signin'}`, {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         password: password,
         email: email,
@@ -39,6 +41,7 @@ class Auth {
   checkToken(jwt) {
     return fetch(`${this.url}/${'users'}/${'me'}`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`,
