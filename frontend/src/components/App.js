@@ -55,7 +55,7 @@ function App() {
 
 
   // Проверка токена
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     const jwt = localStorage.getItem('token');
     if (jwt) {
       auth
@@ -70,7 +70,20 @@ function App() {
           console.log('Ошибка. Запрос не выполнен' + value);
         });
     }
-  }, []);
+  }, []); */
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then((data) => {
+        setLoggedIn(true);
+        setLoggedIn({ loggedIn: true, email: data.email });
+        history.push('/');
+      })
+      .catch((value) => {
+        setLoggedIn(false);
+        console.log('Ошибка. Запрос не выполнен' + value);
+      });
+  }, [])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -175,13 +188,16 @@ function App() {
   function handleLoginUser({ password, email }) {
     auth
       .loginUser(password, email)
-      .then((data) => {
-        console.log(data.header)
-        if (data.token !== 400) {
-          localStorage.setItem('token', data.token);
-          setLoggedIn({ loggedIn: true, email: email });
-          history.push('/');
-        }
+      /*       .then((data) => {
+              if (data.token !== 400) {
+                localStorage.setItem('token', data.token);
+                setLoggedIn({ loggedIn: true, email: email });
+                history.push('/');
+              }
+            }) */
+      .then(() => {
+        setLoggedIn({ loggedIn: true, email: email });
+        history.push('/');
       })
       .catch((value) => {
         setTooltip({
@@ -194,7 +210,8 @@ function App() {
   }
   function handleSignOut() {
     setLoggedIn('false');
-    localStorage.removeItem('token');
+
+    // localStorage.removeItem('token');
     history.push('/sign-in');
   }
   function handleGoBack() {

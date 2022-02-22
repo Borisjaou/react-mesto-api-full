@@ -117,7 +117,8 @@ const login = (req, res, next) => {
 
 const logout = (req, res) => {
   res
-    .cookie('jwt', '')
+    .clearCookie('jwt')
+    // .cookie('jwt', '')
     .end();
 };
 

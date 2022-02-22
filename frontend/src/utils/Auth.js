@@ -38,16 +38,16 @@ class Auth {
     }).then(this._checkResponse);
   }
 
-  checkToken(jwt) {
-    return fetch(`${this.url}/${'users'}/${'me'}`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwt}`,
-      },
-    }).then(this._checkResponse);
-  }
+  /*   checkToken(jwt) {
+      return fetch(`${this.url}/${'users'}/${'me'}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        },
+      }).then(this._checkResponse);
+    } */
 }
 
 const options = {
