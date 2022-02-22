@@ -118,8 +118,8 @@ const login = (req, res, next) => {
 const logout = (req, res, next) => {
   const token = req.cookies.jwt;
   res
-    .clearCookie('jwt', token)
-    // .cookie('jwt', '')
+    // .clearCookie('jwt', token)
+    .cookie('jwt', '')
     .end();
 };
 
