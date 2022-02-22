@@ -116,6 +116,7 @@ const login = (req, res, next) => {
 };
 
 const logout = (req, res, next) => {
+  console.log(req)
   const id = req.user._id;
   User
     .findById(id)
