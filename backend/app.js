@@ -77,7 +77,7 @@ app.post('/sign-in', celebrate({
     password: Joi.string().required().min(8),
   }),
 }), login);
-app.post('/sign-out', logout);
+app.get('/sign-out', logout);
 
 app.use(routes);
 app.use(errorLogger);
