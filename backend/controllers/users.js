@@ -122,7 +122,7 @@ const logout = (req, res, next) => {
     httpOnly: true,
     sameSite: 'None',
     secure: true,
-  }).status(200).end();
+  }).status(200).send({ message: 'Токен удален' });
   // res.cookie('jwt', '')
   // .end();
 };
