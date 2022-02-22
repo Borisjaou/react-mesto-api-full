@@ -115,16 +115,13 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-const logout = (req, res, next) => {
-  // res.clearCookie('jwt').status(200).send({ message: 'Токен удален' });
+const logout = (req, res) => {
   res.cookie('jwt', '', {
     maxAge: 0,
     httpOnly: true,
     sameSite: 'None',
     secure: true,
   }).status(200).send({ message: 'Токен удален' });
-  // res.cookie('jwt', '')
-  // .end();
 };
 
 const currentUser = (req, res, next) => {
