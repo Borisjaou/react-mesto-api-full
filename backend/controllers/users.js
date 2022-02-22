@@ -125,7 +125,7 @@ const logout = (req, res, next) => {
           .end();
       });
    */
-  console.log(req);
+
   res
     .clearCookie('jwt')
     // .cookie('jwt', '')
