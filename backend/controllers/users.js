@@ -117,7 +117,7 @@ const login = (req, res, next) => {
 
 const logout = (req, res, next) => {
   // res.clearCookie(token).status(200).send({ message: 'Токен удален' });
-  req.cookie('jwt', '').status(200).send({ message: 'Токен удален' });
+  res.cookie('jwt', '').status(200).send({ message: 'Токен удален' });
   // res.cookie('jwt', '')
   // .end();
 };
