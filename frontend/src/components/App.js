@@ -53,25 +53,6 @@ function App() {
       });
   }, []);
 
-
-  // Проверка токена
-  /* React.useEffect(() => {
-    const jwt = localStorage.getItem('token');
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then((data) => {
-          console.log(data.token)
-          localStorage.setItem('token', data.token);
-          setLoggedIn({ loggedIn: true, email: data.email });
-          history.push('/');
-        })
-        .catch((value) => {
-          console.log('Ошибка. Запрос не выполнен' + value);
-        });
-    }
-  }, []); */
-
   React.useEffect(() => {
     api.getUserInfo()
       .then((data) => {
@@ -83,6 +64,7 @@ function App() {
         setLoggedIn(false);
         console.log('Ошибка. Запрос не выполнен' + value);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function handleEditProfileClick() {
@@ -128,7 +110,7 @@ function App() {
       });
   }
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -184,17 +166,9 @@ function App() {
       });
   }
 
-  // Логин пользователя
   function handleLoginUser({ password, email }) {
     auth
       .loginUser(password, email)
-      /*       .then((data) => {
-              if (data.token !== 400) {
-                localStorage.setItem('token', data.token);
-                setLoggedIn({ loggedIn: true, email: email });
-                history.push('/');
-              }
-            }) */
       .then(() => {
         setLoggedIn({ loggedIn: true, email: email });
         history.push('/');
@@ -224,8 +198,6 @@ function App() {
         });
         console.log('Ошибка. Запрос не выполнен ' + value);
       });
-    // localStorage.removeItem('token');
-
   }
 
   function handleGoBack() {

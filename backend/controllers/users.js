@@ -9,8 +9,6 @@ const BadRequest = require('../errors/bad-request-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-// const { JWT_SECRET } = require('../src/utils/config');
-
 const getUsers = (req, res, next) => User
   .find({})
   .then((users) => res.status(200).send(users))

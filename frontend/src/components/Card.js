@@ -3,12 +3,10 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  console.log(props);
-  console.log(currentUser);
   const isOwn = props.cardInfo.owner === currentUser._id;
   const cardDeleteButtonClassName = `places__delete ${isOwn ? 'places__delete' : 'places__delete_hidden'
     }`;
-  const isLiked = props.cardInfo.likes.some((i) => i._id === currentUser._id);
+  const isLiked = props.cardInfo.likes.some((i) => i === currentUser._id);
   const cardLikeButtonClassName = `places__like ${isLiked ? 'places__like_active' : 'places__like'
     }`;
   function handleClick() {

@@ -18,16 +18,7 @@ const {
 } = require('./controllers/users');
 
 const routes = require('./routes');
-// const { PORT, DB_ADDRESS } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-/* const allowedCors = [
-  'localhost:3000',
-  'http://tomato.nomoredomains.xyz',
-  'https://tomato.nomoredomains.xyz',
-  'http://api.tomato.nomoredomains.work',
-  'https://api.tomato.nomoredomains.work',
-]; */
 
 const app = express();
 
@@ -45,22 +36,11 @@ app.use(cors({
   credentials: true,
 }));
 
-/* app.use((req, res, next) => {
-  const { origin } = req.headers;
-  if (allowedCors.includes(origin)) {
-    res.headers('Access-Control-Allow-Origin', '*');
-  }
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
-  if (method === 'OPTIONS') {
-    res.headers('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    res.end();
-    return;
-  }
-  next();
-}); */
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/sign-up', celebrate({
   body: Joi.object().keys({

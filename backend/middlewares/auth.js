@@ -3,7 +3,6 @@ const Unauthorized = require('../errors/unauthorized-error');
 require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-// const { JWT_SECRET } = require('../src/utils/config');
 
 module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
