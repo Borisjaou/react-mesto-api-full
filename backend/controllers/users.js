@@ -119,11 +119,8 @@ const logout = (req, res, next) => {
   const { userId } = req.params.userId;
   return User
     .findById(userId)
-    .then(() => {
-      res
-        .clearCookie('jwt')
-        .end();
-    });
+    .then((user) => res.status(200).clearCookie('jwt').send(user))
+    .catch(next);
   /*  res
      .clearCookie('jwt')
      // .cookie('jwt', '')
