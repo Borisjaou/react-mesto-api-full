@@ -116,11 +116,9 @@ const login = (req, res, next) => {
 };
 
 const logout = (req, res, next) => {
-  const token = req.cookies.jwt;
-  res
-    // .clearCookie('jwt', token)
-    .cookie('jwt', '')
-    .end();
+  res.clearCookie('jwt').status(200).send({ message: 'Токен удален' });
+  // .cookie('jwt', '')
+  // .end();
 };
 
 const currentUser = (req, res, next) => {
