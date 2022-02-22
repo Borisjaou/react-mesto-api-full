@@ -208,12 +208,27 @@ function App() {
         console.log('Ошибка. Запрос не выполнен ' + value);
       });
   }
-  function handleSignOut() {
-    setLoggedIn('false');
 
+  function handleSignOut() {
+    auth
+      .logOutUser()
+      .then((info) => {
+        console.log(info)
+        setLoggedIn('false');
+        history.push('/sign-in');
+      })
+      .catch((value) => {
+        setTooltip({
+          text: 'Что-то пошло не так! Попробуйте еще раз.',
+          image: 'error',
+          isOpen: true,
+        });
+        console.log('Ошибка. Запрос не выполнен ' + value);
+      });
     // localStorage.removeItem('token');
-    history.push('/sign-in');
+
   }
+
   function handleGoBack() {
     history.goBack();
   }

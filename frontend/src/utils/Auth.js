@@ -38,6 +38,15 @@ class Auth {
     }).then(this._checkResponse);
   }
 
+  logOutUser() {
+    return fetch(`${this.url}/${'sign-out'}`, {
+      method: 'POST',
+      headers: this._headers,
+      credentials: 'include',
+    }).then(this._checkResponse);
+  }
+
+
   /*   checkToken(jwt) {
       return fetch(`${this.url}/${'users'}/${'me'}`, {
         method: 'GET',
