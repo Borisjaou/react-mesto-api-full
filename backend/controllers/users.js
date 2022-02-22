@@ -116,18 +116,20 @@ const login = (req, res, next) => {
 };
 
 const logout = (req, res, next) => {
-  const { userId } = req.params.userId;
-  return User
-    .findById(userId)
-    .then(() => {
-      res
-        .clearCookie('jwt')
-        .end();
-    });
-  /*  res
-     .clearCookie('jwt')
-     // .cookie('jwt', '')
-     .end(); */
+  /*   const { userId } = req.params.userId;
+    return User
+      .findById(userId)
+      .then(() => {
+        res
+          .clearCookie('jwt')
+          .end();
+      });
+   */
+  console.log(req);
+  res
+    .clearCookie('jwt')
+    // .cookie('jwt', '')
+    .end();
 };
 
 const currentUser = (req, res, next) => {
