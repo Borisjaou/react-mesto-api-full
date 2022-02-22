@@ -117,11 +117,10 @@ const login = (req, res, next) => {
 
 const logout = (req, res, next) => {
   console.log(req, res);
-  res.send(res.toJSON());
-  /*  res
-     .clearCookie('jwt')
-     // .cookie('jwt', '')
-     .end(); */
+  res
+    .clearCookie('jwt')
+    // .cookie('jwt', '')
+    .end();
 };
 
 const currentUser = (req, res, next) => {
