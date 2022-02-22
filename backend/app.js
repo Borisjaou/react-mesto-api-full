@@ -20,6 +20,7 @@ const {
 const routes = require('./routes');
 // const { PORT, DB_ADDRESS } = require('./src/utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const auth = require('./middlewares/auth');
 
 /* const allowedCors = [
   'localhost:3000',
@@ -77,6 +78,7 @@ app.post('/sign-in', celebrate({
     password: Joi.string().required().min(8),
   }),
 }), login);
+app.use(auth);
 app.get('/sign-out', logout);
 
 app.use(routes);
