@@ -116,8 +116,9 @@ const login = (req, res, next) => {
 };
 
 const logout = (req, res) => {
+  const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key');
   res
-    .clearCookie('jwt')
+    .clearCookie('jwt', token)
     // .cookie('jwt', '')
     .end();
 };
