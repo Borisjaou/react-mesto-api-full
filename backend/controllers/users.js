@@ -116,16 +116,11 @@ const login = (req, res, next) => {
 };
 
 const logout = (req, res, next) => {
-  console.log(req)
-  const id = req.headers._id;
-  User
-    .findById(id)
-    .then((user) => res.status(200).clearCookie('jwt').send(user))
-    .catch(next);
-  /*  res
-     .clearCookie('jwt')
-     // .cookie('jwt', '')
-     .end(); */
+  const token = req.cookies.jwt;
+  res
+    .clearCookie('jwt', token)
+    // .cookie('jwt', '')
+    .end();
 };
 
 const currentUser = (req, res, next) => {
