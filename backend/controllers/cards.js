@@ -32,7 +32,7 @@ const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
       throw new Forbidden('Вы не можете удалять чужие карточки');
     } else {
       return card.remove()
-        .then(() => ({ message: 'Карточка удалена' }));
+        .then(() => res.send({ message: 'Карточка удалена' }));
     }
   })
   .catch((err) => {

@@ -171,6 +171,7 @@ function App() {
       .loginUser(password, email)
       .then(() => {
         setLoggedIn({ loggedIn: true, email: email });
+        api.getUserInfo();
         history.push('/');
       })
       .catch((value) => {
