@@ -64,8 +64,7 @@ function App() {
         setLoggedIn(false);
         console.log('Ошибка. Запрос не выполнен' + value);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [history])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -171,7 +170,10 @@ function App() {
       .loginUser(password, email)
       .then(() => {
         setLoggedIn({ loggedIn: true, email: email });
-        api.getUserInfo();
+        api.getUserInfo()
+          .then((user) => {
+            setCurrentUser(user);
+          })
         history.push('/');
       })
       .catch((value) => {
